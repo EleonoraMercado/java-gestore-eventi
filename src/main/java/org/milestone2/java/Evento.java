@@ -55,13 +55,44 @@ public abstract class Evento {
         return numeroPostiPrenotati;
     }
 
-    //creo il metodo prenota posti che andrà implementato nelle sottoclassi
     
-    public abstract void prenota();
     
-    //creo il metodo disdici che andra implementato nelle sottoclassi
+  //metodo di prenotazione che controllerà se la data 
+    //è gia passata, se il numero di posti prenotati piu il
+    //numero di prenotazioni aggiunte è minore dei posti disponibili
+    //e aggiungerò il numero di posti appena prenotati 
     
-    public abstract void disdici();
+    public void prenota(int numeroPosti) {
+   	if (this.dataEvento.isBefore(LocalDate.now())) {
+   	    System.out.println("L'evento è gia passato, non puoi effettuare la prenotazione");
+   	
+   	//devo controlare se ci sono abbastanza posti disponibili
+   	
+   	} else if (numeroPostiPrenotati + numeroPosti > numeroTotalePosti) {
+   	    System.out.println("I posti disponibili sono terminati.");
+   	   	
+   	//aggiungo posti
+   	    
+   	} else {
+   	    numeroPostiPrenotati += numeroPosti;
+   	    System.out.println("Hai prenotato per " + numeroPosti + " posti.");
+   	}
+    }
+    
+    
+    //creo il metodo disdici che verifichera se la data è gia passata, 
+    
+    public void disdici(int numeroPosti) {
+	if (LocalDate.now().isAfter(getDataEvento())) {
+   	    System.out.println("L'evento è gia passato, non puoi effettuare una disdetta");
+   	    return;
+   	}
+	
+	//diminuisco la prenotazione tramite la funzione, e mostro il messaggio di conferma
+	
+	numeroPostiPrenotati = Math.max(numeroPostiPrenotati - numeroPosti,  0);
+	System.out.println("Hai disdetto con successo " + numeroPosti + " posti");
+    }
     
     //creo il metodo toString nella classe astratta perchè ogni oggetto di 
     //un evento(concerto, conferenza, spettacolo etc.)
@@ -70,9 +101,16 @@ public abstract class Evento {
 
     @Override
     public String toString() {
-	return "Evento titolo= " + titolo + "\n dataEvento= " + dataEvento + "\n numeroTotalePosti= " + numeroTotalePosti
-		+ "\n numeroPostiPrenotati= " + numeroPostiPrenotati;
+	return "Evento titolo= " + titolo + "\n dataEvento= " + dataEvento;
     }
+    
+    //creo il metodo per vedere se l'evento è passato da utilizzare all'interno del metodo prenota 
+    //quando lo andrò a implementare nella classe concerto o altri eventi
+    
+    public boolean seEventoPassato() {
+	return LocalDate.now().isAfter(dataEvento);
+    }
+    
        
     
 }
