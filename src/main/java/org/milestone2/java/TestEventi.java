@@ -59,9 +59,7 @@ public class TestEventi {
 	
 	//stampo i posti rimasti dopo la prenotazione
 	
-	int postiDisponibili = concerto.getNumeroTotalePosti() - concerto.getNumeroPostiPrenotati();
-	System.out.println("Posti rimasti a disposizione: " + postiDisponibili);
-	
+	concerto.mostraPostiDisponibili();
 	
 	//chiedo i dati sulla disdetta delle prenotazioni
 	
@@ -78,8 +76,7 @@ public class TestEventi {
 	
 	//stampo i posti disponibili dopo la disdetta
 	
-		postiDisponibili = concerto.getNumeroTotalePosti() - concerto.getNumeroPostiPrenotati();
-		System.out.println("Posti disponibili dopo la disdetta: " + postiDisponibili);
+	concerto.mostraPostiDisponibili();
 	
 	scan.close();
 	

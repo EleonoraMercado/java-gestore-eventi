@@ -88,11 +88,22 @@ public abstract class Evento {
    	    return;
    	}
 	
-	//diminuisco la prenotazione tramite la funzione, e mostro il messaggio di conferma
 	
-	numeroPostiPrenotati = Math.max(numeroPostiPrenotati - numeroPosti,  0);
-	System.out.println("Hai disdetto con successo " + numeroPosti + " posti");
+	if (numeroPosti <= numeroPostiPrenotati) {
+	    numeroPostiPrenotati -= numeroPosti;
+	    System.out.println("Hai disdetto " + numeroPosti + " posti.");
+	}
     }
+    
+    
+    //metodo per vedere i posti disponibili
+    
+    public void mostraPostiDisponibili() {
+	    int postiDisponibili = getNumeroTotalePosti() - getNumeroPostiPrenotati();
+		System.out.println("Posti rimasti a disposizione: " + postiDisponibili);
+	
+}
+    
     
     //creo il metodo toString nella classe astratta perchè ogni oggetto di 
     //un evento(concerto, conferenza, spettacolo etc.)
