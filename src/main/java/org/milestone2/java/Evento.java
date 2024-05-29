@@ -80,7 +80,8 @@ public abstract class Evento {
     }
     
     
-    //creo il metodo disdici che verifichera se la data è gia passata, 
+    //creo il metodo disdici che verifichera se la data è gia passata,
+    //Aggiungerò successivamente la logica per elaborare la disdetta di tutti i posti prenotati
     
     public void disdici(int numeroPosti) {
 	if (LocalDate.now().isAfter(getDataEvento())) {
