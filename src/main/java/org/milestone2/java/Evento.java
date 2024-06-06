@@ -63,37 +63,60 @@ public abstract class Evento {
     //e aggiungerò il numero di posti appena prenotati 
     
     public void prenota(int numeroPosti) {
+	if (numeroPosti <= 0) {
+	        System.out.println("Il numero di posti da prenotare deve essere maggiore di zero.");
+	        return;
+	        
+	}
+	
    	if (this.dataEvento.isBefore(LocalDate.now())) {
-   	    System.out.println("L'evento è gia passato, non puoi effettuare la prenotazione");
+   	    System.out.println("L'evento del " + this.dataEvento +  " è gia passato, non puoi effettuare la prenotazione");
+   	return;
+   	//devo controlare se ci sono abbastanza posti disponibili e confermare la prenotazione
    	
-   	//devo controlare se ci sono abbastanza posti disponibili
+   	} 
    	
-   	} else if (numeroPostiPrenotati + numeroPosti > numeroTotalePosti) {
-   	    System.out.println("I posti disponibili sono terminati.");
+   	if (numeroPostiPrenotati + numeroPosti > numeroTotalePosti) {
+   	    int postiRimasti = numeroTotalePosti - numeroPostiPrenotati;
+   	    System.out.println("I posti disponibili sono terminati, ne sono rimasti solo " + postiRimasti);
+   	    return;
    	   	
-   	//aggiungo posti
-   	    
-   	} else {
-   	    numeroPostiPrenotati += numeroPosti;
-   	    System.out.println("Hai prenotato per " + numeroPosti + " posti.");
-   	}
+   	    } 
+   	
+   	//incremento posti 
+   	
+   	   numeroPostiPrenotati += numeroPosti;
+   	int postiDisponibili = numeroTotalePosti - numeroPostiPrenotati;
+   	   System.out.println("Hai prenotato per " + numeroPosti + " posti.");
+   	
     }
     
     
     //creo il metodo disdici che verifichera se la data è gia passata,
     //Aggiungerò successivamente la logica per elaborare la disdetta di tutti i posti prenotati
     
+    //controlla se l'evento è gia passato
     public void disdici(int numeroPosti) {
 	if (LocalDate.now().isAfter(getDataEvento())) {
    	    System.out.println("L'evento è gia passato, non puoi effettuare una disdetta");
    	    return;
    	}
 	
-	
-	if (numeroPosti <= numeroPostiPrenotati) {
-	    numeroPostiPrenotati -= numeroPosti;
-	    System.out.println("Hai disdetto " + numeroPosti + " posti.");
+	//controlla che il numero di posti da disdire sia valido
+	if (numeroPosti <= 0) {
+	    System.out.println("Il numero di posti da disdire deve essere maggiore di zero.");
+	        return;
 	}
+	
+	//controlla che il numero di posti da disdire non superi i posti prenotati
+	if (numeroPosti > numeroPostiPrenotati ) {
+	    System.out.println("Non puoi disdire più posti di quanti ne hai prenotati.");
+	        return;
+	}
+	
+	//effettua la disdetta decrementando i posti
+	numeroPostiPrenotati -= numeroPosti;
+	    System.out.println("Hai disdetto " + numeroPosti + " posti.");
     }
     
     

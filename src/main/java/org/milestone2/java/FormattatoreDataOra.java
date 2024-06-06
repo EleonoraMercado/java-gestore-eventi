@@ -26,21 +26,30 @@ public class FormattatoreDataOra {
      //formattatore per l'ora
      private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm",Locale.ITALY);
      
-     //creo un metodo per formattare la data e l'ora
+     //creo un metodo per formattare la data e l'ora e un controllo con avviso
      
      public static String formattaDataOra(LocalDateTime dataOra) {
+	 if (dataOra == null) {
+		return "Data e ora non disponibili";
+	 }
          return dataOra.format(DATE_TIME_FORMATTER);
      } 
      
-     //metodo per formattare solo la data
+     //metodo per formattare solo la data e un controllo con avviso
      
      public static String formattaData(LocalDate dataEvento) {
+	 if (dataEvento == null) {
+		return "Data non disponibile";
+	 }
          return dataEvento.format(DATE_FORMATTER);
      }
      
-     //metodo per formattare solo ora
+     //metodo per formattare solo ora e un controllo con avviso
      
      public static String formattaOra(LocalTime ora) {
+	 if (ora == null) {
+		return "Ora non disponibile";
+	 }
          return ora.format(TIME_FORMATTER);
      }
  
